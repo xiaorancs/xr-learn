@@ -32,7 +32,7 @@
     ID3算法不是最优的算法,它使用贪心的方法来决策,其实可以通过回溯的方法得到最优的树,但是这样的代价也是很大的.ID3算法能都很好的拟合训练数据,就可能会过拟合,为了防止过拟合,小的决策树一般会优于大的决策树.ID3算法很难使用在连续的数据上,可以先将连续数据等分成离散的数据在使用(但是不推荐).
     ID3的评价标准之信息熵:
         数据集S的熵(Entropy) 
-$$ H(s) =  -\sum_i^n-p(x)log_2p(x) $$
+$$ H(s) =  -\sum_i^np_i(x)log_2p_i(x) $$
 
         where S是当前的数据集,X是所有的类的集合,x是其中一个类,p  (x)是类x的个数所占的比例.H(S)越小越好,在ID3中计算熵,需要计算剩下的所有的特征的熵,选择最小的熵对应的特征.
 
@@ -53,3 +53,46 @@ $$ IG(A) = H(S) - \sum_{t \in T}p(t)H(t) $$
 $$ IG_RATE(A) = \frac {IG(A)} {H(S)} $$
 
 ## CART算法
+    基于基尼指数进行分类,
+    
+$$Gini(p) = \sum_{k=1}^{K}p_k(1-p_k)=1-\sum_{k=1}^{K}p_k^2 $$
+
+    p_k是第k类的概率,对于给定的样本集合D,其基尼指数是:
+
+$$Gini(D) = 1-\sum_{k=1}^K(\frac{C_K} {D})^2$$
+
+    C_k: 是第k类的样本子集.K是类的个数.
+
+在特征A的条件下,集合D的基尼指数定义:
+
+$$Gini(D,A)=\frac{D_1}{D}Gini(D_1)+\frac{D_2}{D}Gini(D_2)$$
+
+基尼指数越大,样本的不确定性就越大,故此基尼指数越小越好,故每次分割找到最先的基尼指数.
+
+# Example
+```
+import tree
+import numpy as np
+from imp import reload
+import pandas as pd
+# list, np.adarray
+x = [[1,1],[1,1],[1,0],[0,1],[0,1]]
+y = [1,1,0,0,0]
+decisionTree = tree.DecisionTreeClassifier()
+decisionTree.fit(x,y)
+# 预测
+print(decisionTree.predict([[1,1],[1,0],[0,1]]))
+# 验证
+decisionTree.score([[1,1],[1,0],[0,1]],[1,1,0])
+
+# DataFrame
+df_x = pd.DataFrame(x,columns = ['no_surfacing','flippers'])
+df_y = pd.DataFrame(y,columns = ['label'])
+decisionTree.fit(x,y)
+# 预测
+print(decisionTree.predict([[1,1],[1,0],[0,1]]))
+# 验证
+decisionTree.score([[1,1],[1,0],[0,1]],[1,1,0])
+
+
+```
