@@ -35,7 +35,7 @@ class DecisionTreeClassifier(object):
 
     """
     def __init__(self,criterion='i_gain_r',max_depth=None,min_sample_split=2):
-        '''
+        '''构造函数
 
         '''
         self.__criterion = criterion
