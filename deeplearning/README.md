@@ -4,6 +4,9 @@
 
     + 基于tensorflow的简单神经网络的构建.
 
+2. [nn_keras.py](./nn_tf.py) 
+
+    + 基于keras的简单神经网络的构建.
 
 
 
