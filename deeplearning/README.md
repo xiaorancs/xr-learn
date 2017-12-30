@@ -8,6 +8,13 @@
 
     + 基于keras的简单神经网络的构建.
 
+3. [cnn_tf.py](./nn_tf.py) 
+
+    + 基于tensorflow的CNN网络的构建.
+
+4. [cnn_keras.py](./nn_tf.py) 
+
+    + 基于keras的CNN网络的构建.
 
 
 
