@@ -13,8 +13,6 @@ from keras.layers import Conv2D, MaxPooling2D,Flatten
 from keras.datasets import mnist
 
 
-
-
 # In[4]:
 
 # 获取数据集
@@ -39,7 +37,7 @@ x_test /= 255
 x_train.shape
 
 
-# In[ ]:
+# In[5]:
 
 # 设置训练参数，
 learning_rate = 0.001
@@ -71,17 +69,20 @@ model.add(Dense(1024,activation='relu'))
 model.add(Dropout(0.25))
 model.add(Dense(num_classes, activation='softmax'))
 
-model.compile(loss='categorical_crossentropy', optimizer='adam')
+model.compile(loss='categorical_crossentropy', optimizer='adam',metrics=['accuracy'])
 
 model.fit(x_train,y_train,batch_size=batch_size, epochs=num_steps)
 
-score = model.predict(x_test,y_test, batch_size=batch_size)
+
+
+# In[8]:
+
+score = model.evaluate(x_test,y_test,batch_size=batch_size)
 
 print("Test Score ", score)
 
 
 # In[ ]:
-
 
 
 
